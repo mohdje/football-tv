@@ -52,6 +52,14 @@
   width: 100%;
 }
 
+.loading-area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 /* width */
 ::-webkit-scrollbar {
   height: 7px;
