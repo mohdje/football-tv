@@ -1,6 +1,8 @@
 export async function getHtmlDocument(url) {
     try {
-        const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
+        const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
+        //  const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
+
 
         // Fetch the HTML content
         const response = await fetch(proxyUrl);
@@ -11,8 +13,11 @@ export async function getHtmlDocument(url) {
 
         // Parse the HTML content
         const parser = new DOMParser();
-        const text = await response.text()
-        const document = await parser.parseFromString(text, 'text/html');
+        // const text = await response.text();
+        // const document = await parser.parseFromString(text, 'text/html');
+
+        const data = await response.json();
+        const document = await parser.parseFromString(data.contents, 'text/html');
 
         return document;
 

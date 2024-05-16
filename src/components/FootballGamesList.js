@@ -19,7 +19,6 @@ export default function FootballGamesList({ macthesContainersList, onMatchClick 
     }, [macthesContainersList]);
 
     const checkIsOverflow = () => {
-        console.log("checkIsOverflow")
         const element = containerRef.current;
         setIsOverflow(element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth);
     }
