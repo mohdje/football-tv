@@ -1,0 +1,119 @@
+.football-games-leagues-container {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.football-games-league {
+    background: rgb(255, 255, 255);
+    background: linear-gradient(188deg, rgba(255, 255, 255, 0.13769257703081228) 24%, rgba(201, 201, 201, 0.036852240896358524) 88%);
+    border-radius: 10px;
+    margin: 10px;
+    min-width: 400px;
+}
+
+@media (max-width: 800px) {
+    .football-games-leagues-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .football-games-league {
+        max-width: 90%;
+    }
+}
+
+.football-league {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding-left: 7px;
+    padding-top: 5px;
+    margin-bottom: 5px;
+}
+
+.football-league .logo {
+    width: 30px;
+    height: auto;
+}
+
+.football-league .name {
+    color: white;
+    font-weight: 700;
+    text-align: left;
+}
+
+.match-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    color: white;
+    font-weight: 600;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 3px;
+    margin: 0 5px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 20px -3px;
+}
+
+.match-container:hover {
+    background-color: rgba(255, 255, 255, 0.247);
+
+}
+
+.match-container:active {
+    background-color: rgba(255, 255, 255, 0.425);
+}
+
+.match-container .team {
+    display: flex;
+    align-items: center;
+    gap: 3%;
+    width: 30%;
+    font-size: 15px;
+    justify-content: flex-end;
+}
+
+.match-container .team img {
+    width: 30px;
+    height: auto;
+}
+
+.match-container .team.home {
+    justify-content: flex-end;
+}
+
+.match-container .team.visitor {
+    justify-content: flex-start;
+}
+
+.links-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px 5px 18px 5px;
+    gap: 5%;
+    flex-wrap: wrap;
+}
+
+.links-container a {
+    background-color: white;
+    color: rgb(17, 17, 63);
+    border-radius: 7px;
+    padding: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 2%;
+}
+
+.links-container a:hover {
+    background-color: rgb(228, 228, 228);
+}
+
+.links-container a:active {
+    background-color: rgb(177, 177, 177);
+}

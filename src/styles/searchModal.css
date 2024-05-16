@@ -1,0 +1,43 @@
+.search-modal-container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.486);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-modal {
+    background: rgb(6, 3, 51);
+    background: linear-gradient(188deg, rgba(6, 3, 51, 1) 24%, rgba(38, 47, 101, 1) 88%);
+    color: white;
+    border-radius: 10px;
+    font-weight: 600;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+@keyframes rotating {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+.spinner-container {
+    height: 60px;
+    width: 60px;
+    animation: rotating 0.8s linear infinite;
+}
