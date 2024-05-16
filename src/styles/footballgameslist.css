@@ -22,6 +22,7 @@
 
     .football-games-league {
         max-width: 90%;
+        min-width: 0;
     }
 }
 
