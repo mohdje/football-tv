@@ -1,7 +1,7 @@
 import Spinner from "./logos/Spinner.js";
 import { useState, useEffect } from "react";
 import { getTodaysMatches } from "../services/FootballEvents.js";
-import { getStreams } from "../services/StreamsSearcher.js";
+import { getStreamsLinks } from "../services/StreamsSearcher.js";
 import FootballGamesList from "./FootballGamesList.js";
 import SearchModal from "./SearchModal.js";
 
@@ -25,12 +25,12 @@ export default function AppContent() {
 
     const handleMatchClick = async (match) => {
         setSearchModalVisible(true);
-        const streams = await getStreams(match);
+        const streamsLinks = await getStreamsLinks(match);
 
         const updatedMacthesContainersList = [...macthesContainersList];
 
         const matchToUpdate = updatedMacthesContainersList.flatMap(league => league.matches).find(m => m.id === match.id);
-        matchToUpdate.streams = streams.filter(stream => Boolean(stream));
+        matchToUpdate.streams = streamsLinks;
 
         setMacthesContainersList(updatedMacthesContainersList);
         setSearchModalVisible(false);

@@ -1,9 +1,15 @@
 import { getHtmlDocument } from "./CorsProxy";
 
-export async function getStreams(match) {
-    const promises = [getSoccerStreamsAppLinks(match), getOlympicStreamsLinks(match)];
+export async function getStreamsLinks(match) {
 
-    return await Promise.all(promises);
+    const promises = [
+        getSoccerStreamsAppLinks(match),
+        getOlympicStreamsLinks(match),
+        getRedditSportbuffStreamsLinks(match)];
+
+    const links = await Promise.all(promises);
+
+    return links.filter(link => Boolean(link));
 }
 
 
@@ -42,3 +48,34 @@ async function getOlympicStreamsLinks(match) {
         }
     }
 }
+
+async function getRedditSportbuffStreamsLinks(match) {
+    const url = "https://reddit.sportsbuff.stream/";
+    const htmlDocument = await getHtmlDocument(url);
+
+    const translateFromCyrillic = (cyrillicString) => {
+        const cyrillicMap = {
+            "і": "i", "о": "o", "е": "e", "а": "a"
+        };
+
+        let latinString = '';
+        for (let char of cyrillicString) {
+            latinString += cyrillicMap[char] || char; // Use original character if no mapping found
+        }
+        return latinString;
+    }
+
+    if (htmlDocument) {
+        const linkElements = htmlDocument.querySelectorAll("a.item-event");
+
+        for (let i = 0; i < linkElements.length; i++) {
+            const linkElement = linkElements[i];
+            const teamsNames = translateFromCyrillic(linkElement.innerText?.toLowerCase().trim());
+
+            if (teamsNames.includes(match.homeTeam.name.toLowerCase()) || teamsNames.includes(match.awayTeam.name.toLowerCase())) {
+                return linkElement.href;
+            }
+        }
+    }
+}
+
