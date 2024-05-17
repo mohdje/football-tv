@@ -3,7 +3,7 @@ import { getHtmlDocument } from "./CorsProxy";
 export async function getTodaysMatches() {
     const result = [];
 
-    const leaguesToKeep = ["Premier League", "LaLiga", "Ligue 1", "Bundesliga", "Serie A", "UEFA Champions League"];
+    const leaguesToKeep = ["Premier League", "LaLiga", "Ligue 1", "Bundesliga", "Serie A", "UEFA Champions League", "UEFA European Championship"];
 
     const htmlDocument = await getHtmlDocument("https://onefootball.com/en/matches", true);
 
@@ -19,7 +19,6 @@ export async function getTodaysMatches() {
         const matchesLists = matchesListContainers.map(container => container.type.fullWidth.component.contentType.matchCardsList);
         let matchId = 0;
         matchesLists.forEach(matchList => {
-            console.log("matchList", matchList)
             const leagueName = matchList.sectionHeader.title;
             if (leaguesToKeep.includes(leagueName)) {
                 const league = {
