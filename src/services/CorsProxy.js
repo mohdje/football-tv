@@ -1,29 +1,35 @@
-export async function getHtmlDocument(url) {
+export async function getHtmlDocument(url, avoidCache) {
     try {
-        const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
-        //  const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
-
-
-        // Fetch the HTML content
+        const proxyUrl = buildProxyUrl(url, avoidCache);
         const response = await fetch(proxyUrl);
-        // Check if the request was successful
+
         if (!response.ok) {
             throw new Error(`HTTP error status: ${response.status}`);
         }
 
-        // Parse the HTML content
         const parser = new DOMParser();
-        // const text = await response.text();
-        // const document = await parser.parseFromString(text, 'text/html');
-
-        const data = await response.json();
-        const document = await parser.parseFromString(data.contents, 'text/html');
+        const text = await response.text();
+        const document = await parser.parseFromString(text, 'text/html');
 
         return document;
-
-        // Or to insert the entire HTML content into a specific element in your document
-        // document.getElementById('targetElementId').innerHTML = doc.documentElement.outerHTML;
     } catch (error) {
         console.error('Error loading HTML:', error);
+    }
+}
+
+function buildProxyUrl(targetUrlPage, avoidCache) {
+    const proxyUrl = "https://corsproxy.io";
+    if (avoidCache) {
+        const date = new Date();
+        date.setUTCHours(0, 0, 0, 0);
+        const avoidCacheParameter = `footballtvapp=${date.getTime()}`;
+
+        const queryCharSeparator = targetUrlPage.includes('?') ? "&" : "?";
+        const encodedUri = encodeURIComponent(`${targetUrlPage}${queryCharSeparator}${avoidCacheParameter}`);
+        return `${proxyUrl}/?${encodedUri}`;
+
+    } else {
+        const encodedUri = encodeURIComponent(targetUrlPage);
+        return `${proxyUrl}/?${encodedUri}`;
     }
 }
