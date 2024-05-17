@@ -19,6 +19,7 @@ export async function getTodaysMatches() {
         const matchesLists = matchesListContainers.map(container => container.type.fullWidth.component.contentType.matchCardsList);
         let matchId = 0;
         matchesLists.forEach(matchList => {
+            console.log("matchList", matchList)
             const leagueName = matchList.sectionHeader.title;
             if (leaguesToKeep.includes(leagueName)) {
                 const league = {
@@ -37,7 +38,8 @@ export async function getTodaysMatches() {
                         awayTeam: {
                             name: match.awayTeam.name,
                             logo: match.awayTeam.imageObject.path
-                        }
+                        },
+                        startDateTime: new Date(match.kickoff)
                     });
 
                 });

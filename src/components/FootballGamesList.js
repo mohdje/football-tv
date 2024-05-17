@@ -43,6 +43,12 @@ export default function FootballGamesList({ macthesContainersList, onMatchClick 
 
 function MatchInfo({ match, onClick }) {
 
+    const getFormattedTime = (date) => {
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    }
+
     let streamLinks = "";
     if (match.streams && match.streams.length === 0)
         streamLinks = <div>No streams found</div>
@@ -56,7 +62,10 @@ function MatchInfo({ match, onClick }) {
                     <div>{match.homeTeam.name}</div>
                     <img src={match.homeTeam.logo}></img>
                 </div>
-                <div>vs</div>
+                <div>
+                    <div>{getFormattedTime(match.startDateTime)}</div>
+                    <div>vs</div>
+                </div>
                 <div className="team visitor">
                     <img src={match.awayTeam.logo}></img>
                     <div>{match.awayTeam.name}</div>
