@@ -5,7 +5,9 @@ export async function getStreamsLinks(match) {
     const promises = [
         getSoccerStreamsAppLinks(match),
         getOlympicStreamsLinks(match),
-        getRedditSportbuffStreamsLinks(match)];
+        getRedditSportbuffStreamsLinks(match),
+        getFootybiteStreamsLinks(match),
+        getTotalSportekStreamsLinks(match)];
 
     const links = await Promise.all(promises);
 
@@ -71,6 +73,40 @@ async function getRedditSportbuffStreamsLinks(match) {
         for (let i = 0; i < linkElements.length; i++) {
             const linkElement = linkElements[i];
             const teamsNames = translateFromCyrillic(linkElement.innerText?.toLowerCase().trim());
+
+            if (teamsNames.includes(match.homeTeam.name.toLowerCase()) || teamsNames.includes(match.awayTeam.name.toLowerCase())) {
+                return linkElement.href;
+            }
+        }
+    }
+}
+
+async function getFootybiteStreamsLinks(match) {
+    const baseUrl = "https://back.footybite.com";
+    const page = await getHtmlDocument(baseUrl);
+
+    if (page) {
+        const linkElements = page.querySelectorAll("a");
+        for (let i = 0; i < linkElements.length; i++) {
+            const linkElement = linkElements[i];
+            const teamsNames = linkElement.title?.toLowerCase().trim();
+
+            if (teamsNames.includes(match.homeTeam.name.toLowerCase()) || teamsNames.includes(match.awayTeam.name.toLowerCase())) {
+                return linkElement.href;
+            }
+        }
+    }
+}
+
+async function getTotalSportekStreamsLinks(match) {
+    const baseUrl = "https://totalsportek.pro";
+    const page = await getHtmlDocument(baseUrl);
+
+    if (page) {
+        const linkElements = page.querySelectorAll("a");
+        for (let i = 0; i < linkElements.length; i++) {
+            const linkElement = linkElements[i];
+            const teamsNames = linkElement.innerText?.toLowerCase().trim();
 
             if (teamsNames.includes(match.homeTeam.name.toLowerCase()) || teamsNames.includes(match.awayTeam.name.toLowerCase())) {
                 return linkElement.href;
