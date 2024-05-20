@@ -36,28 +36,28 @@ export default function AppContent() {
         setSearchModalVisible(false);
     }
 
-    const content = () => {
-        if (searchingMatches) {
-            return (
-                <div className="loading-area">
-                    <div>Searching for today's matches...</div>
-                    <div className="spinner-container">
-                        <Spinner />
-                    </div>
-                </div>);
-        }
-        else if (macthesContainersList?.length > 0) {
-            return <FootballGamesList macthesContainersList={macthesContainersList} onMatchClick={(match) => handleMatchClick(match)} />
-        }
-        else {
-            return <div>No football matches found for today</div>
-        }
+    let content = null
+    if (searchingMatches) {
+        content = (
+            <div className="loading-area">
+                <div>Searching for today's matches...</div>
+                <div className="spinner-container">
+                    <Spinner />
+                </div>
+            </div>);
     }
+    else if (macthesContainersList?.length > 0) {
+        content = <FootballGamesList macthesContainersList={macthesContainersList} onMatchClick={(match) => handleMatchClick(match)} />
+    }
+    else {
+        content = <div>No football matches found for today</div>
+    }
+
 
     return (
         <div className="App-Content">
             <div className="title">Today's matches</div>
-            {content()}
+            {content}
             <SearchModal isVisible={searchModalVisible} />
         </div>)
 }
