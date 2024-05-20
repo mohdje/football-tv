@@ -84,6 +84,11 @@
     height: auto;
 }
 
+.match-container .team .name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .match-container .team.home {
     justify-content: flex-end;
 }

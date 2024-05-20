@@ -53,13 +53,13 @@ function MatchInfo({ match, onClick }) {
     if (match.streams && match.streams.length === 0)
         streamLinks = <div>No streams found</div>
     else
-        streamLinks = match.streams?.map((stream, index) => <a href={stream} key={index} target="_blank">Link {index}</a>)
+        streamLinks = match.streams?.map((stream, index) => <a href={stream} key={index} target="_blank">Link {index + 1}</a>)
 
     return (
         <div>
             <div className="match-container" onClick={() => onClick()}>
                 <div className="team home">
-                    <div>{match.homeTeam.name}</div>
+                    <div className="name">{match.homeTeam.name}</div>
                     <img src={match.homeTeam.logo}></img>
                 </div>
                 <div>
@@ -68,7 +68,7 @@ function MatchInfo({ match, onClick }) {
                 </div>
                 <div className="team visitor">
                     <img src={match.awayTeam.logo}></img>
-                    <div>{match.awayTeam.name}</div>
+                    <div className="name">{match.awayTeam.name}</div>
                 </div>
             </div>
             <div className="links-container">
