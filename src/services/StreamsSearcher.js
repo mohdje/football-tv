@@ -45,15 +45,14 @@ async function getOlympicStreamsLinks(match) {
             const teamsNames = linkElement.title?.toLowerCase().trim();
 
             if (teamsNames.includes(match.homeTeam.name.toLowerCase()) || teamsNames.includes(match.awayTeam.name.toLowerCase())) {
-                const urlElements = linkElement.href.split('/');
-                return `${baseUrl}/${urlElements[urlElements.length - 1]}`;
+                return `${baseUrl}${new URL(linkElement.href).pathname}`;
             }
         }
     }
 }
 
 async function getRedditSportbuffStreamsLinks(match) {
-    const url = "https://reddit.sportsbuff.stream/";
+    const url = "https://reddit11.sportshub.stream";
     const htmlDocument = await getHtmlDocument(url);
 
     const translateFromCyrillic = (cyrillicString) => {
@@ -127,8 +126,7 @@ async function getSportsBayStreamsLinks(match) {
             const teamsNames = linkElement.innerText?.toLowerCase().trim();
 
             if (teamsNames.includes(match.homeTeam.name.toLowerCase()) || teamsNames.includes(match.awayTeam.name.toLowerCase())) {
-                const urlElements = linkElement.href.split('/');
-                return `${baseUrl}/futbol/${urlElements[urlElements.length - 1]}`;
+                return `${baseUrl}${new URL(linkElement.href).pathname}`;
             }
         }
     }
