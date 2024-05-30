@@ -28,9 +28,12 @@ export default function FootballGamesList({ macthesContainersList, onMatchClick 
             {macthesContainersList.map(container => {
                 return (
                     <div key={container.league.name} className="football-games-league">
-                        <div className="football-league">
-                            <img className="logo" src={container.league.logo}></img>
-                            <div className="name">{container.league.name}</div>
+                        <div className="header">
+                            <div className="football-league">
+                                <img className="logo" src={container.league.logo}></img>
+                                <div className="name">{container.league.name}</div>
+                            </div>
+                            <div className="journey">{container.league.journey}</div>
                         </div>
 
                         {container.matches.map((match, index) => <MatchInfo key={index} match={match} onClick={() => onMatchClick(match)} />)}

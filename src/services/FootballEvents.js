@@ -19,11 +19,13 @@ export async function getTodaysMatches() {
         const matchesLists = matchesListContainers.map(container => container.type.fullWidth.component.contentType.matchCardsList);
         let matchId = 0;
         matchesLists.forEach(matchList => {
+            console.log("matchList", matchList)
             const leagueName = matchList.sectionHeader.title;
             if (leaguesToKeep.includes(leagueName)) {
                 const league = {
                     name: leagueName,
-                    logo: matchList.sectionHeader.entityLogo.path
+                    logo: matchList.sectionHeader.entityLogo.path,
+                    journey: matchList.sectionHeader.subtitle
                 };
 
                 const matches = [];
