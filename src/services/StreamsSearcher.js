@@ -7,7 +7,8 @@ export async function getStreamsLinks(match) {
         getOlympicStreamsLinks(match),
         getRedditSportbuffStreamsLinks(match),
         getFootybiteStreamsLinks(match),
-        getTotalSportekStreamsLinks(match)];
+        getTotalSportekStreamsLinks(match),
+        getSportsBayStreamsLinks(match)];
 
     const links = await Promise.all(promises);
 
@@ -110,6 +111,24 @@ async function getTotalSportekStreamsLinks(match) {
 
             if (teamsNames.includes(match.homeTeam.name.toLowerCase()) || teamsNames.includes(match.awayTeam.name.toLowerCase())) {
                 return linkElement.href;
+            }
+        }
+    }
+}
+
+async function getSportsBayStreamsLinks(match) {
+    const baseUrl = "https://sportsbay.dk";
+    const page = await getHtmlDocument(baseUrl);
+
+    if (page) {
+        const linkElements = page.querySelectorAll("a.url.summary");
+        for (let i = 0; i < linkElements.length; i++) {
+            const linkElement = linkElements[i];
+            const teamsNames = linkElement.innerText?.toLowerCase().trim();
+
+            if (teamsNames.includes(match.homeTeam.name.toLowerCase()) || teamsNames.includes(match.awayTeam.name.toLowerCase())) {
+                const urlElements = linkElement.href.split('/');
+                return `${baseUrl}/futbol/${urlElements[urlElements.length - 1]}`;
             }
         }
     }
