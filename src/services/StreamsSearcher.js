@@ -121,7 +121,7 @@ async function getSportsBayStreamsLinks(match) {
     const page = await getHtmlDocument(baseUrl);
 
     if (page) {
-        const linkElements = page.querySelectorAll("a.url.summary");
+        const linkElements = page.querySelectorAll("a");
         for (let i = 0; i < linkElements.length; i++) {
             const linkElement = linkElements[i];
             const teamsNames = linkElement.innerText?.toLowerCase().trim();
