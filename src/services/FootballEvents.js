@@ -3,7 +3,7 @@ import { getHtmlDocument } from "./CorsProxy";
 export async function getTodaysMatches() {
     const result = [];
 
-    const leaguesToKeep = ["Premier League", "LaLiga", "Ligue 1", "Bundesliga", "Serie A", "UEFA Champions League", "UEFA European Championship"];
+    const leaguesToKeep = ["Premier League", "LaLiga", "Ligue 1", "Bundesliga", "Serie A", "UEFA Champions League", "EURO 2024"];
 
     const htmlDocument = await getHtmlDocument("https://onefootball.com/en/matches", true);
 
