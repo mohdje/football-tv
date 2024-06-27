@@ -52,12 +52,6 @@ function MatchInfo({ match, onClick }) {
         return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
     }
 
-    let streamLinks = "";
-    if (match.streams && match.streams.length === 0)
-        streamLinks = <div>No streams found</div>
-    else
-        streamLinks = match.streams?.map((stream, index) => <a href={stream} key={index} target="_blank">Link {index + 1}</a>)
-
     return (
         <div>
             <div className="match-container" onClick={() => onClick()}>
@@ -73,9 +67,6 @@ function MatchInfo({ match, onClick }) {
                     <img src={match.awayTeam.logo}></img>
                     <div className="name">{match.awayTeam.name}</div>
                 </div>
-            </div>
-            <div className="links-container">
-                {streamLinks}
             </div>
         </div>
     );

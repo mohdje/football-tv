@@ -1,18 +1,27 @@
 import { getHtmlDocument } from "./CorsProxy";
+import { getTotalSportekStreamsUrl } from "./streamSearchers/TotalSportekStreamsSearcher";
+import { getSportsBayStreamsUrl } from "./streamSearchers/SportsbayStreamsSearcher";
 
-export async function getStreamsLinks(match) {
-
+export async function searchMatchStreamsAsync(match, onStreamsFound, onNoStreamFound) {
     const promises = [
-        getSoccerStreamsAppLinks(match),
-        getOlympicStreamsLinks(match),
-        getRedditSportbuffStreamsLinks(match),
-        getFootybiteStreamsLinks(match),
-        getTotalSportekStreamsLinks(match),
-        getSportsBayStreamsLinks(match)];
+        getSportsBayStreamsUrl(match),
+        getTotalSportekStreamsUrl(match)];
 
-    const links = await Promise.all(promises);
+    let foundStreams = false;
+    const searchStreamPromise = async (promise) => {
+        const urls = await promise;
+        if (urls?.length > 0) {
+            onStreamsFound(urls);
+            foundStreams = true;
+        }
+    }
 
-    return links.filter(link => Boolean(link));
+    await Promise.all(promises.map(promise => searchStreamPromise(promise)));
+
+    console.log("end of funtion");
+
+    if (!foundStreams)
+        onNoStreamFound();
 }
 
 
@@ -32,24 +41,6 @@ async function getSoccerStreamsAppLinks(match) {
     }
 }
 
-async function getOlympicStreamsLinks(match) {
-    const baseUrl = "https://olympicstreams.co";
-    const streamsUrl = `${baseUrl}/live/soccer-stream`;
-
-    const page = await getHtmlDocument(streamsUrl);
-
-    if (page) {
-        const linkElements = page.querySelectorAll("a");
-        for (let i = 0; i < linkElements.length; i++) {
-            const linkElement = linkElements[i];
-            const teamsNames = linkElement.title?.toLowerCase().trim();
-
-            if (teamsNames.includes(match.homeTeam.name.toLowerCase()) || teamsNames.includes(match.awayTeam.name.toLowerCase())) {
-                return `${baseUrl}${new URL(linkElement.href).pathname}`;
-            }
-        }
-    }
-}
 
 async function getRedditSportbuffStreamsLinks(match) {
     const url = "https://reddit11.sportshub.stream";
@@ -82,7 +73,7 @@ async function getRedditSportbuffStreamsLinks(match) {
 }
 
 async function getFootybiteStreamsLinks(match) {
-    const baseUrl = "https://back.footybite.com";
+    const baseUrl = "https://back.footybite.com/portal3";
     const page = await getHtmlDocument(baseUrl);
 
     if (page) {
@@ -97,38 +88,3 @@ async function getFootybiteStreamsLinks(match) {
         }
     }
 }
-
-async function getTotalSportekStreamsLinks(match) {
-    const baseUrl = "https://totalsportek.pro";
-    const page = await getHtmlDocument(baseUrl);
-
-    if (page) {
-        const linkElements = page.querySelectorAll("a");
-        for (let i = 0; i < linkElements.length; i++) {
-            const linkElement = linkElements[i];
-            const teamsNames = linkElement.innerText?.toLowerCase().trim();
-
-            if (teamsNames.includes(match.homeTeam.name.toLowerCase()) || teamsNames.includes(match.awayTeam.name.toLowerCase())) {
-                return linkElement.href;
-            }
-        }
-    }
-}
-
-async function getSportsBayStreamsLinks(match) {
-    const baseUrl = "https://sportsbay.dk";
-    const page = await getHtmlDocument(baseUrl);
-
-    if (page) {
-        const linkElements = page.querySelectorAll("a");
-        for (let i = 0; i < linkElements.length; i++) {
-            const linkElement = linkElements[i];
-            const teamsNames = linkElement.innerText?.toLowerCase().trim();
-
-            if (teamsNames.includes(match.homeTeam.name.toLowerCase()) || teamsNames.includes(match.awayTeam.name.toLowerCase())) {
-                return `${baseUrl}${new URL(linkElement.href).pathname}`;
-            }
-        }
-    }
-}
-

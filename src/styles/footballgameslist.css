@@ -53,7 +53,7 @@
     color: rgb(197, 191, 233);
     font-weight: 500;
     text-align: left;
-    font-style: italic;
+    margin: 5px 0;
 }
 
 .match-container {
@@ -67,13 +67,12 @@
     cursor: pointer;
     border-radius: 10px;
     padding: 3px;
-    margin: 0 5px;
+    margin: 15px 5px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 20px -3px;
 }
 
 .match-container:hover {
     background-color: rgba(255, 255, 255, 0.247);
-
 }
 
 .match-container:active {
@@ -105,31 +104,4 @@
 
 .match-container .team.visitor {
     justify-content: flex-start;
-}
-
-.links-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 8px 5px 18px 5px;
-    gap: 5%;
-    flex-wrap: wrap;
-}
-
-.links-container a {
-    background-color: white;
-    color: rgb(17, 17, 63);
-    border-radius: 7px;
-    padding: 5px;
-    text-decoration: none;
-    font-weight: 600;
-    margin-bottom: 2%;
-}
-
-.links-container a:hover {
-    background-color: rgb(228, 228, 228);
-}
-
-.links-container a:active {
-    background-color: rgb(177, 177, 177);
 }

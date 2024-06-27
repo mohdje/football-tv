@@ -1,14 +1,22 @@
 import Spinner from "./logos/Spinner.js";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getTodaysMatches } from "../services/FootballEvents.js";
-import { getStreamsLinks } from "../services/StreamsSearcher.js";
+import { searchMatchStreamsAsync } from "../services/StreamsSearcher.js";
 import FootballGamesList from "./FootballGamesList.js";
 import SearchModal from "./SearchModal.js";
+import StreamPlayerModal from "./streamPlayer/StreamPlayerModal.js";
+import ToastMessage from "./ToastMessage.js";
 
 export default function AppContent() {
     const [macthesContainersList, setMacthesContainersList] = useState([]);
     const [searchModalVisible, setSearchModalVisible] = useState(false);
     const [searchingMatches, setSearchingMatches] = useState(false);
+
+    const [matchStreamUrls, setMatchStreamUrls] = useState([]);
+    const matchStreamUrlsRef = useRef([]);
+    const [showStreamPlayer, setShowStreamPlayer] = useState(false);
+
+    const [showToastMessage, setShowToastMessage] = useState(false);
 
 
     useEffect(() => {
@@ -21,19 +29,40 @@ export default function AppContent() {
             setSearchingMatches(false);
         }
         fetchData();
+
+        // document.addEventListener('visibilitychange', function () {
+        //     if (document.hidden) {
+
+        //         console.log('Tab is now inactive', window);
+        //     } else {
+        //         console.log('Tab is active');
+        //     }
+        // });
     }, []);
+
 
     const handleMatchClick = async (match) => {
         setSearchModalVisible(true);
-        const streamsLinks = await getStreamsLinks(match);
 
-        const updatedMacthesContainersList = [...macthesContainersList];
+        await searchMatchStreamsAsync(match, (streamsUrls) => {
+            streamsUrls = streamsUrls.filter(url => !matchStreamUrlsRef.current.find(existingUrl => existingUrl === url));
 
-        const matchToUpdate = updatedMacthesContainersList.flatMap(league => league.matches).find(m => m.id === match.id);
-        matchToUpdate.streams = streamsLinks;
+            const updateStreamUrlsList = [...matchStreamUrlsRef.current, ...streamsUrls];
+            matchStreamUrlsRef.current = updateStreamUrlsList
 
-        setMacthesContainersList(updatedMacthesContainersList);
-        setSearchModalVisible(false);
+            setMatchStreamUrls(updateStreamUrlsList);
+
+            if (!showStreamPlayer || searchModalVisible) {
+                setSearchModalVisible(false);
+                setShowStreamPlayer(true);
+            }
+        }, () => {
+            setSearchModalVisible(false);
+            setShowToastMessage(true);
+            setTimeout(() => {
+                setShowToastMessage(false);
+            }, 3000);
+        })
     }
 
     let content = null
@@ -59,5 +88,7 @@ export default function AppContent() {
             <div className="title">Today's matches</div>
             {content}
             <SearchModal isVisible={searchModalVisible} />
+            <StreamPlayerModal isVisible={showStreamPlayer} urls={matchStreamUrls} onOutsideClick={() => setShowStreamPlayer(false)} />
+            <ToastMessage message={"No stream found"} isVisible={showToastMessage} />
         </div>)
 }

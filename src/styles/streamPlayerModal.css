@@ -1,0 +1,135 @@
+.stream-player-container {
+    width: 80%;
+    height: 80%;
+    border-radius: 10px;
+    position: relative
+}
+
+.stream-player-container .logo {
+    z-index: 2;
+    position: absolute;
+    top: 2%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 1s;
+    background-color: rgba(137, 43, 226, 0.801);
+    border-radius: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .stream-player-container .logo {
+        position: fixed;
+    }
+}
+
+.stream-player-container .logo:hover {
+    opacity: 1;
+}
+
+.stream-player-container .logo.full-screen {
+    right: 2%;
+}
+
+.stream-player-container .logo.list {
+    left: 2%;
+}
+
+.stream-player-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: inherit;
+    background-color: black;
+    z-index: 1;
+}
+
+.stream-links-list-container {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    background: rgb(35, 31, 150);
+    background: linear-gradient(42deg, rgba(35, 31, 150, 1) 0%, rgba(31, 17, 88, 1) 100%);
+    border-radius: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.stream-links-list-container.visible {
+    width: 20%;
+    opacity: 1;
+    visibility: visible;
+}
+
+@media only screen and (max-width: 600px) {
+    .stream-links-list-container.visible {
+        position: fixed;
+        width: 50%;
+        opacity: 1;
+        visibility: visible;
+    }
+
+}
+
+.stream-links-list-container .header {
+    font-weight: 600;
+    font-size: 18px;
+    padding: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.stream-links-list-container .header .action-logo {
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    transition: opacity ease 0.5s;
+}
+
+.stream-links-list-container .header .action-logo:hover {
+    opacity: 0.7;
+}
+
+.stream-links-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0 5px;
+}
+
+.stream-links-list .stream-link {
+    font-weight: 500;
+    font-size: 18px;
+    padding: 7px 15px;
+    text-align: left;
+    background: rgb(145, 31, 150);
+    background: linear-gradient(137deg, rgba(145, 31, 150, 1) 0%, rgba(88, 17, 50, 1) 100%);
+    opacity: 0.7;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: opacity 0.5s;
+}
+
+.stream-links-list .stream-link.selected {
+    background: white;
+    color: rgba(88, 17, 50, 1);
+    opacity: 1;
+
+}
+
+.stream-links-list .stream-link:hover {
+    opacity: 1;
+}
+
+.stream-links-list .stream-link .domain-source {
+    font-size: 12px;
+}
