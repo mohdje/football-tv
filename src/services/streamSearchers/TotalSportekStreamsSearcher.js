@@ -66,5 +66,5 @@ function getTotalSportekStreamPageUrls(htmlDocument) {
 async function getIframeStreamUrl(streamPageUrl) {
     const streamPage = await getHtmlDocument(streamPageUrl);
     const iframeElement = streamPage.querySelector("iframe");
-    return iframeElement?.href;
+    return iframeElement?.src;
 }
