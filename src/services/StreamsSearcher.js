@@ -18,8 +18,6 @@ export async function searchMatchStreamsAsync(match, onStreamsFound, onNoStreamF
 
     await Promise.all(promises.map(promise => searchStreamPromise(promise)));
 
-    console.log("end of funtion");
-
     if (!foundStreams)
         onNoStreamFound();
 }
@@ -64,23 +62,6 @@ async function getRedditSportbuffStreamsLinks(match) {
         for (let i = 0; i < linkElements.length; i++) {
             const linkElement = linkElements[i];
             const teamsNames = translateFromCyrillic(linkElement.innerText?.toLowerCase().trim());
-
-            if (teamsNames.includes(match.homeTeam.name.toLowerCase()) || teamsNames.includes(match.awayTeam.name.toLowerCase())) {
-                return linkElement.href;
-            }
-        }
-    }
-}
-
-async function getFootybiteStreamsLinks(match) {
-    const baseUrl = "https://back.footybite.com/portal3";
-    const page = await getHtmlDocument(baseUrl);
-
-    if (page) {
-        const linkElements = page.querySelectorAll("a");
-        for (let i = 0; i < linkElements.length; i++) {
-            const linkElement = linkElements[i];
-            const teamsNames = linkElement.title?.toLowerCase().trim();
 
             if (teamsNames.includes(match.homeTeam.name.toLowerCase()) || teamsNames.includes(match.awayTeam.name.toLowerCase())) {
                 return linkElement.href;
