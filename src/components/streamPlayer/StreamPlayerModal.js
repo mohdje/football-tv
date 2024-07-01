@@ -7,16 +7,16 @@ import StreamLinksList from "./StreamLinksList.js";
 import "../../styles/streamPlayerModal.css";
 import { useEffect, useRef, useState } from "react";
 
-export default function StreamPlayerModal({ urls, isVisible, onOutsideClick }) {
+export default function StreamPlayerModal({ streams, isVisible, onOutsideClick }) {
     if (isVisible) {
-        const player = StreamPlayer({ urls: urls });
+        const player = StreamPlayer({ streams: streams });
         return <ModalContainer content={player} onOutsideClick={() => onOutsideClick()} />
     }
     else
         return null
 }
 
-function StreamPlayer({ urls }) {
+function StreamPlayer({ streams }) {
     const streamPlayerContainer = useRef(null);
     const [iframeSource, setIframeSource] = useState("");
     const [isFullScreen, setIsFullScreen] = useState(false);
@@ -24,12 +24,12 @@ function StreamPlayer({ urls }) {
 
     useEffect(() => {
         if (!iframeSource) {
-            setIframeSource(urls[0]);
+            setIframeSource(streams[0].url);
         }
-    }, [urls]);
+    }, [streams]);
 
-    const handleStreamLinkClick = (url) => {
-        setIframeSource(url);
+    const handleStreamLinkClick = (selectedStream) => {
+        setIframeSource(selectedStream.url);
         setIsStreamLinksListVisible(false);
     }
 
@@ -39,8 +39,8 @@ function StreamPlayer({ urls }) {
         </div>
         <StreamLinksList
             isVisible={isStreamLinksListVisible}
-            urls={urls}
-            onLinkClick={(url) => handleStreamLinkClick(url)}
+            streams={streams}
+            onLinkClick={(stream) => handleStreamLinkClick(stream)}
             onCloseClick={() => setIsStreamLinksListVisible(false)} />
 
         <div className="logo full-screen" onClick={() => setIsFullScreen(toggleFullScreen(streamPlayerContainer.current))}>

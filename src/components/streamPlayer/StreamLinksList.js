@@ -2,33 +2,34 @@ import "../../styles/streamPlayerModal.css";
 import CloseLogo from "../logos/CloseLogo";
 import { useState, useEffect } from "react";
 
-export default function StreamLinksList({ isVisible, urls, onLinkClick, onCloseClick }) {
+export default function StreamLinksList({ isVisible, streams, onLinkClick, onCloseClick }) {
     const [streamLinksList, setStreamLinksList] = useState([]);
 
     useEffect(() => {
-        if (urls && streamLinksList.length === 0) {
-            setStreamLinksList(buildStreamLinksList(urls));
+        if (streams && streamLinksList.length === 0) {
+            setStreamLinksList(buildStreamLinksList(streams));
         } else {
             const selectedIndex = streamLinksList.findIndex(streamLink => streamLink.selected);
-            const updatedStreamLinksList = buildStreamLinksList(urls, selectedIndex);
+            const updatedStreamLinksList = buildStreamLinksList(streams, selectedIndex);
             setStreamLinksList(updatedStreamLinksList);
         }
-    }, [urls]);
+    }, [streams]);
 
-    const handleLinkClick = (index, url) => {
-        const updatedStreamLinksList = buildStreamLinksList(streamLinksList.map(streamLink => streamLink.url), index);
+    const handleLinkClick = (index, selectedStream) => {
+        const updatedStreamLinksList = buildStreamLinksList(streamLinksList, index);
         setStreamLinksList(updatedStreamLinksList);
 
-        setTimeout(() => onLinkClick(url), 300);
+        setTimeout(() => onLinkClick(selectedStream), 300);
     }
 
-    const buildStreamLinksList = (links, selectedIndex) => {
-        if (!links || links.length === 0)
+    const buildStreamLinksList = (streams, selectedIndex) => {
+        if (!streams || streams.length === 0)
             return [];
 
-        const newList = links.map(link => {
+        const newList = streams.map(stream => {
             return {
-                url: link,
+                url: stream.url,
+                channel: stream.channel,
                 selected: false
             }
         });
@@ -51,18 +52,17 @@ export default function StreamLinksList({ isVisible, urls, onLinkClick, onCloseC
                     key={i}
                     index={i}
                     url={streamLink.url}
+                    channel={streamLink.channel}
                     selected={streamLink.selected}
-                    onClick={() => handleLinkClick(i, streamLink.url)} />)}
+                    onClick={() => handleLinkClick(i, streamLink)} />)}
         </div>
     </div>
 }
 
 
-function StreamLink({ index, url, selected, onClick }) {
-    const urlObject = new URL(url);
-    const domainName = urlObject.hostname;
+function StreamLink({ index, channel, selected, onClick }) {
     return <div className={`stream-link ${selected ? "selected" : ""}`} onClick={() => onClick()}>
         <div>Link {index}</div>
-        <div className="domain-source">{domainName}</div>
+        <div className="channel-name">{channel}</div>
     </div>
 }

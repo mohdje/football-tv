@@ -16,7 +16,12 @@ export async function getDldhStreamsUrls(match) {
                     || soccerMatch.event.toLowerCase().includes(match.awayTeam.name.toLowerCase()));
 
             if (event) {
-                return event.channels?.map(channel => `https://dlhd.sx/embed/stream-${channel.channel_id}.php`);
+                return event.channels?.map(channel => {
+                    return {
+                        url: `https://dlhd.sx/embed/stream-${channel.channel_id}.php`,
+                        channel: channel.channel_name
+                    }
+                });
             }
         }
     }

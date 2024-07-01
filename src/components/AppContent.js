@@ -12,8 +12,8 @@ export default function AppContent() {
     const [searchModalVisible, setSearchModalVisible] = useState(false);
     const [searchingMatches, setSearchingMatches] = useState(false);
 
-    const [matchStreamUrls, setMatchStreamUrls] = useState([]);
-    const matchStreamUrlsRef = useRef([]);
+    const [matchStreams, setMatchStreams] = useState([]);
+    const matchStreamsRef = useRef([]);
     const [showStreamPlayer, setShowStreamPlayer] = useState(false);
 
     const [showToastMessage, setShowToastMessage] = useState(false);
@@ -29,28 +29,19 @@ export default function AppContent() {
             setSearchingMatches(false);
         }
         fetchData();
-
-        // document.addEventListener('visibilitychange', function () {
-        //     if (document.hidden) {
-
-        //         console.log('Tab is now inactive', window);
-        //     } else {
-        //         console.log('Tab is active');
-        //     }
-        // });
     }, []);
 
 
     const handleMatchClick = async (match) => {
         setSearchModalVisible(true);
 
-        await searchMatchStreamsAsync(match, (streamsUrls) => {
-            streamsUrls = streamsUrls.filter(url => !matchStreamUrlsRef.current.find(existingUrl => existingUrl === url));
+        await searchMatchStreamsAsync(match, (newStreams) => {
+            newStreams = newStreams.filter(newStream => !matchStreamsRef.current.find(stream => stream.url === newStream.url));
 
-            const updateStreamUrlsList = [...matchStreamUrlsRef.current, ...streamsUrls];
-            matchStreamUrlsRef.current = updateStreamUrlsList
+            const updateStreamUrlsList = [...matchStreamsRef.current, ...newStreams];
+            matchStreamsRef.current = updateStreamUrlsList
 
-            setMatchStreamUrls(updateStreamUrlsList);
+            setMatchStreams(updateStreamUrlsList);
 
             if (!showStreamPlayer || searchModalVisible) {
                 setSearchModalVisible(false);
@@ -88,7 +79,7 @@ export default function AppContent() {
             <div className="title">Today's matches</div>
             {content}
             <SearchModal isVisible={searchModalVisible} />
-            <StreamPlayerModal isVisible={showStreamPlayer} urls={matchStreamUrls} onOutsideClick={() => setShowStreamPlayer(false)} />
+            <StreamPlayerModal isVisible={showStreamPlayer} streams={matchStreams} onOutsideClick={() => setShowStreamPlayer(false)} />
             <ToastMessage message={"No stream found"} isVisible={showToastMessage} />
         </div>)
 }

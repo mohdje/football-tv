@@ -54,7 +54,7 @@ function getTotalSportekStreamPageUrls(htmlDocument) {
             if (isStreamProvider) {
                 const linkElement = divElement.querySelector("a");
                 if (linkElement?.href) {
-                    streamPageUrls.push(linkElement.href)
+                    streamPageUrls.push({ url: linkElement.href, channel: "Totalsportek" });
                 }
             }
         }

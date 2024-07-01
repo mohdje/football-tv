@@ -44,7 +44,12 @@ function getStreamUrls(streamPage) {
                 if (matchResult && matchResult[1]) {
                     const data = JSON.parse(matchResult[1].trim().replace(",]};", "]}"));
                     if (data?.SUB) {
-                        return data?.SUB.map(stream => stream.code);
+                        return data?.SUB.map(stream => {
+                            return {
+                                url: stream.code,
+                                channel: stream.server
+                            }
+                        });
                     }
                 }
             }
