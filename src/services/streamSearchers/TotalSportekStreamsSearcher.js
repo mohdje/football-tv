@@ -1,6 +1,6 @@
 import { getHtmlDocument } from "../CorsProxy";
 
-export async function getTotalSportekStreamsUrl(match) {
+export async function getTotalSportekStreamsUrls(match) {
     const baseUrl = "https://totalsportek.pro";
     const page = await getHtmlDocument(baseUrl);
 

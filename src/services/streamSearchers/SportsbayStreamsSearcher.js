@@ -1,12 +1,12 @@
 import { getCountryNameTranslation } from "../RestApiCountries";
 import { getHtmlDocument } from "../CorsProxy";
 
-export async function getSportsBayStreamsUrl(match) {
+export async function getSportsBayStreamsUrls(match) {
     const baseUrl = "https://sportsbay.dk";
     const page = await getHtmlDocument(baseUrl);
 
-    const homeTeamName = await getCountryNameTranslation(match.homeTeam.name, "spa");
-    const awayTeamName = await getCountryNameTranslation(match.awayTeam.name, "spa");
+    const homeTeamName = await getCountryNameTranslation(match.homeTeam.name, "spa") ?? homeTeamName;
+    const awayTeamName = await getCountryNameTranslation(match.awayTeam.name, "spa") ?? awayTeamName;
 
     const streamPageUrl = getSportsBayStreamPageLink(page, homeTeamName, awayTeamName);
 

@@ -1,17 +1,40 @@
 export async function getHtmlDocument(url, avoidCache) {
+    return await fetchData({
+        url: url,
+        avoidCache: avoidCache,
+        parseToHtmlDocument: true
+    })
+}
+
+export async function getData(url, avoidCache) {
+    return await fetchData({
+        url: url,
+        avoidCache: avoidCache,
+        parseToJsonObject: true
+    })
+}
+
+async function fetchData(options) {
     try {
-        const proxyUrl = buildProxyUrl(url, avoidCache);
+        const proxyUrl = buildProxyUrl(options.url, options.avoidCache);
         const response = await fetch(proxyUrl);
 
         if (!response.ok) {
             throw new Error(`HTTP error status: ${response.status}`);
         }
 
-        const parser = new DOMParser();
-        const text = await response.text();
-        const document = await parser.parseFromString(text, 'text/html');
+        if (options.parseToHtmlDocument) {
+            const parser = new DOMParser();
+            const text = await response.text();
+            const document = await parser.parseFromString(text, 'text/html');
 
-        return document;
+            return document;
+        }
+        else if (options.parseToJsonObject) {
+            const data = await response.json();
+            return data;
+        }
+
     } catch (error) {
         console.error('Error loading HTML:', error);
     }
