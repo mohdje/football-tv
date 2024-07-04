@@ -1,19 +1,20 @@
-import { getHtmlDocument } from "./CorsProxy";
 import { getTotalSportekStreamsUrls } from "./streamSearchers/TotalSportekStreamsSearcher";
 import { getSportsBayStreamsUrls } from "./streamSearchers/SportsbayStreamsSearcher";
 import { getDldhStreamsUrls } from "./streamSearchers/DlhdStreamSearcher";
+import { getSoccerStreamAppStreamsUrls } from "./streamSearchers/SoccerStreamsAppStreamsSearcher";
 
 export async function searchMatchStreamsAsync(match, onStreamsFound, onNoStreamFound) {
     const promises = [
         getSportsBayStreamsUrls(match),
         getTotalSportekStreamsUrls(match),
-        getDldhStreamsUrls(match)];
+        getDldhStreamsUrls(match),
+        getSoccerStreamAppStreamsUrls(match)];
 
     let foundStreams = false;
     const searchStreamPromise = async (promise) => {
-        const urls = await promise;
-        if (urls?.length > 0) {
-            onStreamsFound(urls);
+        const streams = await promise;
+        if (streams?.length > 0) {
+            onStreamsFound(streams);
             foundStreams = true;
         }
     }
@@ -23,21 +24,4 @@ export async function searchMatchStreamsAsync(match, onStreamsFound, onNoStreamF
     if (!foundStreams)
         onNoStreamFound();
 }
-
-async function getSoccerStreamsAppLinks(match) {
-    const url = "https://soccerstreams.app/schedule";
-
-    const page = await getHtmlDocument(url);
-
-    if (page) {
-        const linkElements = page.querySelectorAll("a.team-name");
-        for (let i = 0; i < linkElements.length; i++) {
-            const linkElement = linkElements[i];
-            const teamName = linkElement.querySelector("span")?.innerText.toLowerCase().trim();
-            if (match.homeTeam.name.toLowerCase() === teamName || match.awayTeam.name.toLowerCase() === teamName)
-                return linkElement.href;
-        }
-    }
-}
-
 
