@@ -2,14 +2,13 @@ import { getData } from "../CorsProxy";
 
 export async function getDldhStreamsUrls(match) {
 
-    const baseUrl = "https://dlhd.so";
-    const data = await getData(`${baseUrl}/schedule/schedule-generated.json`);
+    const url = "https://dlhd.so/schedule/schedule-generated.json";
+    const data = await getData(url);
 
     if (data) {
         // Get the first property value
         const [sports] = Object.values(data);
 
-        console.log("sports", sports)
         if (sports?.Soccer?.length > 0) {
             const event = sports.Soccer.find(
                 soccerMatch => soccerMatch.event.toLowerCase().includes(match.homeTeam.name.toLowerCase())

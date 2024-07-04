@@ -5,8 +5,8 @@ export async function getSportsBayStreamsUrls(match) {
     const baseUrl = "https://sportsbay.dk";
     const page = await getHtmlDocument(baseUrl);
 
-    const homeTeamName = await getCountryNameTranslation(match.homeTeam.name, "spa") ?? homeTeamName;
-    const awayTeamName = await getCountryNameTranslation(match.awayTeam.name, "spa") ?? awayTeamName;
+    const homeTeamName = await getCountryNameTranslation(match.homeTeam.name, "spa") ?? match.homeTeam.name;
+    const awayTeamName = await getCountryNameTranslation(match.awayTeam.name, "spa") ?? match.awayTeam.name;
 
     const streamPageUrl = getSportsBayStreamPageLink(page, homeTeamName, awayTeamName);
 
@@ -44,7 +44,7 @@ function getStreamUrls(streamPage) {
                 if (matchResult && matchResult[1]) {
                     const data = JSON.parse(matchResult[1].trim().replace(",]};", "]}"));
                     if (data?.SUB) {
-                        return data?.SUB.map(stream => {
+                        return data.SUB.map(stream => {
                             return {
                                 url: stream.code,
                                 channel: stream.server

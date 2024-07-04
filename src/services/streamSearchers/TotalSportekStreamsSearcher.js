@@ -5,13 +5,14 @@ export async function getTotalSportekStreamsUrls(match) {
     const page = await getHtmlDocument(baseUrl);
 
     const streamLinksPageUrl = getTotalSportekStreamsLinksPageUrl(page, match);
-
     if (!streamLinksPageUrl)
         return null;
 
     const streamLinksPage = await getHtmlDocument(streamLinksPageUrl);
-    const streamPageUrls = getTotalSportekStreamPageUrls(streamLinksPage);
+    if (!streamLinksPage)
+        return null;
 
+    const streamPageUrls = getTotalSportekStreamPageUrls(streamLinksPage);
     if (!streamPageUrls || streamPageUrls.length === 0)
         return null;
 
