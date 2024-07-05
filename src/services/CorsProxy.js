@@ -1,22 +1,20 @@
-export async function getHtmlDocument(url, avoidCache) {
+export async function getHtmlDocument(url) {
     return await fetchData({
         url: url,
-        avoidCache: avoidCache,
         parseToHtmlDocument: true
     })
 }
 
-export async function getData(url, avoidCache) {
+export async function getData(url) {
     return await fetchData({
         url: url,
-        avoidCache: avoidCache,
         parseToJsonObject: true
     })
 }
 
 async function fetchData(options) {
     try {
-        const proxyUrl = buildProxyUrl(options.url, options.avoidCache);
+        const proxyUrl = buildProxyUrl(options.url);
         const response = await fetch(proxyUrl);
 
         if (!response.ok) {
@@ -40,19 +38,8 @@ async function fetchData(options) {
     }
 }
 
-function buildProxyUrl(targetUrlPage, avoidCache) {
-    const proxyUrl = "https://corsproxy.io";
-    if (avoidCache) {
-        const date = new Date();
-        date.setUTCHours(0, 0, 0, 0);
-        const avoidCacheParameter = `footballtvapp=${date.getTime()}`;
-
-        const queryCharSeparator = targetUrlPage.includes('?') ? "&" : "?";
-        const encodedUri = encodeURIComponent(`${targetUrlPage}${queryCharSeparator}${avoidCacheParameter}`);
-        return `${proxyUrl}/?${encodedUri}`;
-
-    } else {
-        const encodedUri = encodeURIComponent(targetUrlPage);
-        return `${proxyUrl}/?${encodedUri}`;
-    }
+function buildProxyUrl(targetUrlPage) {
+    const proxyUrl = "https://football-tv-serverless.vercel.app/api/corsProxy";
+    const encodedUri = encodeURIComponent(targetUrlPage);
+    return `${proxyUrl}?url=${encodedUri}`;
 }

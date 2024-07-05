@@ -5,7 +5,7 @@ export async function getTodaysMatches() {
 
     const leaguesToKeep = ["Premier League", "LaLiga", "Ligue 1", "Bundesliga", "Serie A", "UEFA Champions League", "EURO 2024", "Copa América"];
 
-    const htmlDocument = await getHtmlDocument("https://onefootball.com/en/matches", true);
+    const htmlDocument = await getHtmlDocument("https://onefootball.com/en/matches");
 
     if (!htmlDocument)
         return result;
