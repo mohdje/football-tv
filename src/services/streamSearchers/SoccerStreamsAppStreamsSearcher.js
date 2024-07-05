@@ -36,12 +36,10 @@ function getStreams(htmlDocument) {
     const streams = [];
     for (let i = 0; i < btnElements.length; i++) {
         const btnElement = btnElements[i];
-
         streams.push({
             url: btnElement.getAttribute('datatype'),
-            channel: "SoccerStreams"
+            channel: `SoccerStreams ${i}`
         })
-
     }
 
     return streams;

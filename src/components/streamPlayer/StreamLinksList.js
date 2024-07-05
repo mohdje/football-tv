@@ -42,7 +42,7 @@ export default function StreamLinksList({ isVisible, streams, onLinkClick, onClo
 
     return <div className={`stream-links-list-container ${isVisible ? "visible" : ""}`}>
         <div className="header">
-            <div>Available Links</div>
+            <div>Available Channels</div>
             <div className="action-logo" onClick={() => onCloseClick()}><CloseLogo /></div>
 
         </div>
@@ -50,7 +50,6 @@ export default function StreamLinksList({ isVisible, streams, onLinkClick, onClo
             {streamLinksList.map((streamLink, i) =>
                 <StreamLink
                     key={i}
-                    index={i}
                     url={streamLink.url}
                     channel={streamLink.channel}
                     selected={streamLink.selected}
@@ -60,9 +59,8 @@ export default function StreamLinksList({ isVisible, streams, onLinkClick, onClo
 }
 
 
-function StreamLink({ index, channel, selected, onClick }) {
+function StreamLink({ channel, selected, onClick }) {
     return <div className={`stream-link ${selected ? "selected" : ""}`} onClick={() => onClick()}>
-        <div>Link {index}</div>
         <div className="channel-name">{channel}</div>
     </div>
 }

@@ -19,7 +19,7 @@ export async function getTotalSportekStreamsUrls(match) {
     const promises = streamPageUrls.map(url => getIframeStreamUrl(url));
     const streamUrls = await Promise.all(promises);
 
-    return streamUrls.filter(link => Boolean(link));
+    return streamUrls.filter(streamUrl => Boolean(streamUrl)).map((streamUrl, index) => { return { url: streamUrl, channel: `TotalSportek ${index + 1}` } });
 }
 
 
@@ -55,7 +55,7 @@ function getTotalSportekStreamPageUrls(htmlDocument) {
             if (isStreamProvider) {
                 const linkElement = divElement.querySelector("a");
                 if (linkElement?.href) {
-                    streamPageUrls.push({ url: linkElement.href, channel: "Totalsportek" });
+                    streamPageUrls.push(linkElement.href);
                 }
             }
         }
@@ -66,6 +66,12 @@ function getTotalSportekStreamPageUrls(htmlDocument) {
 
 async function getIframeStreamUrl(streamPageUrl) {
     const streamPage = await getHtmlDocument(streamPageUrl);
-    const iframeElement = streamPage.querySelector("iframe");
-    return iframeElement?.src;
+
+    if (streamPage) {
+        const iframeElement = streamPage.querySelector("iframe");
+        return iframeElement?.src;
+    }
+    else
+        return null;
+
 }
