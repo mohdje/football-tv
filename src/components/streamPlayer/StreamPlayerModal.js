@@ -20,7 +20,7 @@ function StreamPlayer({ streams }) {
     const streamPlayerContainer = useRef(null);
     const [iframeSource, setIframeSource] = useState("");
     const [isFullScreen, setIsFullScreen] = useState(false);
-    const [isStreamLinksListVisible, setIsStreamLinksListVisible] = useState(false);
+    const [isStreamLinksListVisible, setIsStreamLinksListVisible] = useState(true);
 
     useEffect(() => {
         if (!iframeSource) {
