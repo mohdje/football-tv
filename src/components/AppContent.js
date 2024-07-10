@@ -34,6 +34,7 @@ export default function AppContent() {
 
     const handleMatchClick = async (match) => {
         setSearchModalVisible(true);
+        matchStreamsRef.current = [];
 
         await searchMatchStreamsAsync(match, (newStreams) => {
             newStreams = newStreams.filter(newStream => !matchStreamsRef.current.find(stream => stream.url === newStream.url));
