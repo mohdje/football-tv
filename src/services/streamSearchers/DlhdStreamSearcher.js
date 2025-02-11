@@ -22,6 +22,8 @@ export async function getDldhStreamsUrls(match) {
                     }
                 });
             }
+            else
+                return [];
         }
     }
 
