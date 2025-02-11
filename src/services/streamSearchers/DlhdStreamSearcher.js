@@ -2,7 +2,7 @@ import { getData } from "../CorsProxy";
 
 export async function getDldhStreamsUrls(match) {
 
-    const url = "https://dlhd.so/schedule/schedule-generated.json";
+    const url = "https://thedaddy.to/schedule/schedule-generated.json";
     const data = await getData(url);
 
     if (data) {
@@ -14,10 +14,10 @@ export async function getDldhStreamsUrls(match) {
                 soccerMatch => soccerMatch.event.toLowerCase().includes(match.homeTeam.name.toLowerCase())
                     || soccerMatch.event.toLowerCase().includes(match.awayTeam.name.toLowerCase()));
 
-            if (event) {
-                return event.channels?.map(channel => {
+            if (event?.channels?.map) {
+                return event.channels.map(channel => {
                     return {
-                        url: `https://dlhd.sx/embed/stream-${channel.channel_id}.php`,
+                        url: `https://thedaddy.to/embed/stream-${channel.channel_id}.php`,
                         channel: channel.channel_name
                     }
                 });
