@@ -2,7 +2,7 @@ import { getData } from "../CorsProxy";
 
 export async function getDldhStreamsUrls(match) {
 
-    const url = "https://thedaddy.to/schedule/schedule-generated.json";
+    const url = "https://thedaddy.to/schedule/schedule-generated.json";//https://daddylive.dad/
     const data = await getData(url);
 
     if (data) {
