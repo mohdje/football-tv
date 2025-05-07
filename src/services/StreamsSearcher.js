@@ -2,13 +2,20 @@ import { getTotalSportekStreamsUrls } from "./streamSearchers/TotalSportekStream
 import { getSportsBayStreamsUrls } from "./streamSearchers/SportsbayStreamsSearcher";
 import { getDldhStreamsUrls } from "./streamSearchers/DlhdStreamSearcher";
 import { getSoccerStreamAppStreamsUrls } from "./streamSearchers/SoccerStreamsAppStreamsSearcher";
+import { getPpvStreamsUrls } from "./streamSearchers/PpvStreamSearcher";
+
 
 export async function searchMatchStreamsAsync(match, onStreamsFound, onNoStreamFound) {
+    // const promises = [
+    //     getSportsBayStreamsUrls(match),
+    //     getTotalSportekStreamsUrls(match),
+    //     getDldhStreamsUrls(match),
+    //     getSoccerStreamAppStreamsUrls(match),
+    //     getPpvStreamsUrls(match)];
+
     const promises = [
         getSportsBayStreamsUrls(match),
-        getTotalSportekStreamsUrls(match),
-        getDldhStreamsUrls(match),
-        getSoccerStreamAppStreamsUrls(match)];
+        getPpvStreamsUrls(match)];
 
     let foundStreams = false;
     const searchStreamPromise = async (promise) => {

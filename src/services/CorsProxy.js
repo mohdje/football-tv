@@ -39,7 +39,7 @@ async function fetchData(options) {
 }
 
 function buildProxyUrl(targetUrlPage) {
-    const proxyUrl = "https://football-tv-serverless.vercel.app/api/corsProxy";
+    const proxyUrl = "http://46.17.100.173:5218/proxy";
     const encodedUri = encodeURIComponent(targetUrlPage);
-    return `${proxyUrl}?url=${encodedUri}`;
+    return `${proxyUrl}?url=${encodedUri}&headersBase64=VXNlci1hZ2VudDogU2FmYXJpLzUzNy4zNg==`;
 }
