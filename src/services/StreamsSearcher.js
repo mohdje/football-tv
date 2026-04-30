@@ -1,21 +1,12 @@
-import { getTotalSportekStreamsUrls } from "./streamSearchers/TotalSportekStreamsSearcher";
-import { getSportsBayStreamsUrls } from "./streamSearchers/SportsbayStreamsSearcher";
-import { getDldhStreamsUrls } from "./streamSearchers/DlhdStreamSearcher";
-import { getSoccerStreamAppStreamsUrls } from "./streamSearchers/SoccerStreamsAppStreamsSearcher";
-import { getPpvStreamsUrls } from "./streamSearchers/PpvStreamSearcher";
+import { getStreamsPk } from "./streamSearchers/StreamedPkSearcher";
+import { getStreamFooty } from "./streamSearchers/WatchfootySearcher";
 
 
 export async function searchMatchStreamsAsync(match, onStreamsFound, onNoStreamFound) {
-    // const promises = [
-    //     getSportsBayStreamsUrls(match),
-    //     getTotalSportekStreamsUrls(match),
-    //     getDldhStreamsUrls(match),
-    //     getSoccerStreamAppStreamsUrls(match),
-    //     getPpvStreamsUrls(match)];
-
     const promises = [
-        getSportsBayStreamsUrls(match),
-        getPpvStreamsUrls(match)];
+        getStreamsPk(match),
+        getStreamFooty(match)
+    ];
 
     let foundStreams = false;
     const searchStreamPromise = async (promise) => {
@@ -27,6 +18,7 @@ export async function searchMatchStreamsAsync(match, onStreamsFound, onNoStreamF
     }
 
     await Promise.all(promises.map(promise => searchStreamPromise(promise)));
+
 
     if (!foundStreams)
         onNoStreamFound();
