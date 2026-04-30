@@ -19,7 +19,6 @@ export async function searchMatchStreamsAsync(match, onStreamsFound, onNoStreamF
 
     await Promise.all(promises.map(promise => searchStreamPromise(promise)));
 
-
     if (!foundStreams)
         onNoStreamFound();
 }
