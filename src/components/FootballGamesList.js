@@ -30,7 +30,7 @@ export default function FootballGamesList({ macthesContainersList, onMatchClick 
                     <div key={container.league.name} className="football-games-league">
                         <div className="header">
                             <div className="football-league">
-                                <img className="logo" src={container.league.logo}></img>
+                                <img className="logo" src={container.league.logo} alt=""></img>
                                 <div className="name">{container.league.name}</div>
                             </div>
                             <div className="journey">{container.league.journey}</div>
@@ -57,14 +57,14 @@ function MatchInfo({ match, onClick }) {
             <div className="match-container" onClick={() => onClick()}>
                 <div className="team home">
                     <div className="name">{match.homeTeam.name}</div>
-                    <img src={match.homeTeam.logo}></img>
+                    <img src={match.homeTeam.logo} alt=""></img>
                 </div>
                 <div>
                     <div>{getFormattedTime(match.startDateTime)}</div>
                     <div>vs</div>
                 </div>
                 <div className="team visitor">
-                    <img src={match.awayTeam.logo}></img>
+                    <img src={match.awayTeam.logo} alt=""></img>
                     <div className="name">{match.awayTeam.name}</div>
                 </div>
             </div>

@@ -14,7 +14,7 @@ function App() {
       <AppContent />
       <div className="App-Footer">
         <div>Feel free to contribute</div>
-        <a href="https://github.com/mohdje/football-tv" target="_blank">
+        <a href="https://github.com/mohdje/football-tv" target="_blank" rel="noopener noreferrer">
           <div className="logo-container">
             <GithubLogo />
           </div>

@@ -13,7 +13,7 @@ export default function StreamLinksList({ isVisible, streams, onLinkClick, onClo
             const updatedStreamLinksList = buildStreamLinksList(streams, selectedIndex);
             setStreamLinksList(updatedStreamLinksList);
         }
-    }, [streams]);
+    }, [streams, streamLinksList]);
 
     const handleLinkClick = (index, selectedStream) => {
         const updatedStreamLinksList = buildStreamLinksList(streamLinksList, index);

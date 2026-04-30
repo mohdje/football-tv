@@ -26,7 +26,7 @@ function StreamPlayer({ streams }) {
         if (!iframeSource) {
             setIframeSource(streams[0].url);
         }
-    }, [streams]);
+    }, [streams, iframeSource]);
 
     const handleStreamLinkClick = (selectedStream) => {
         setIframeSource(selectedStream.url);
