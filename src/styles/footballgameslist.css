@@ -1,16 +1,13 @@
 .football-games-leagues-container {
     display: flex;
-    align-items: stretch;
-    justify-content: center;
-    width: 100%;
-    overflow-x: auto;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+    gap: 10px;
 }
 
 .football-games-league {
-    background: rgb(255, 255, 255);
     background: linear-gradient(188deg, rgba(255, 255, 255, 0.13769257703081228) 24%, rgba(201, 201, 201, 0.036852240896358524) 88%);
     border-radius: 10px;
-    margin: 10px;
     min-width: 400px;
 }
 
@@ -66,9 +63,9 @@
     margin-top: 10px;
     cursor: pointer;
     border-radius: 10px;
-    padding: 3px;
+    padding: 7px;
     margin: 15px 5px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 20px -3px;
+    box-shadow: rgb(28 28 49 / 89%) 1px 1px 10px 0px, rgba(0, 0, 0, 0.3) 0px 3px 20px -3px;
 }
 
 .match-container:hover {

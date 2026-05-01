@@ -4,27 +4,22 @@ import { useRef, useEffect, useState } from 'react';
 export default function FootballGamesList({ macthesContainersList, onMatchClick }) {
 
     const containerRef = useRef(null);
-    const [isOverflow, setIsOverflow] = useState(false);
 
     useEffect(() => {
-        window.addEventListener("resize", checkIsOverflow);
-        return () => {
-            window.removeEventListener("resize", checkIsOverflow);
+        const leagueCard = document.getElementsByClassName("football-games-league")[0];
+        const container = containerRef.current;
+        if (container && leagueCard) {
+            const cardsPerRow = Math.floor(container.clientWidth / leagueCard.clientWidth);
+            const totalCardsWidth = cardsPerRow * (leagueCard.clientWidth + 10); // 10px is the gap between cards
+            const remainingSpace = container.clientWidth - totalCardsWidth;
+            container.style.marginLeft = `${remainingSpace / 2}px`;
+            container.style.marginRight = `${remainingSpace / 2}px`;
         }
     }, []);
 
 
-    useEffect(() => {
-        checkIsOverflow();
-    }, [macthesContainersList]);
-
-    const checkIsOverflow = () => {
-        const element = containerRef.current;
-        setIsOverflow(element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth);
-    }
-
     return (
-        <div ref={containerRef} className="football-games-leagues-container" style={{ justifyContent: isOverflow ? "flex-start" : "center" }}>
+        <div ref={containerRef} className="football-games-leagues-container">
             {macthesContainersList.map(container => {
                 return (
                     <div key={container.league.name} className="football-games-league">

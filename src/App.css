@@ -4,7 +4,7 @@
   min-height: 100vh;
 
   background: rgb(13, 8, 111);
-  background: linear-gradient(188deg, rgba(13, 8, 111, 1) 24%, rgba(52, 74, 213, 1) 88%);
+  background: linear-gradient(188deg, rgb(3, 0, 66) 24%, rgb(59, 62, 79) 88%);
   display: flex;
   flex-direction: column;
   align-items: center;
