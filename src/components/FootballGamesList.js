@@ -1,5 +1,5 @@
 import "../styles/footballgameslist.css";
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 
 export default function FootballGamesList({ macthesContainersList, onMatchClick }) {
 
