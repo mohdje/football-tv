@@ -2,9 +2,8 @@
   text-align: center;
   color: white;
   min-height: 100vh;
-
-  background: rgb(13, 8, 111);
-  background: linear-gradient(188deg, rgb(3, 0, 66) 24%, rgb(59, 62, 79) 88%);
+  background: #020024;
+  background: linear-gradient(173deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 21, 255, 1) 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,6 +37,7 @@
   margin-top: 2%;
   color: rgba(255, 255, 255, 0.87);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 5px;

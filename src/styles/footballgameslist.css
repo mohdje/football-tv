@@ -3,12 +3,15 @@
     flex-wrap: wrap;
     overflow-x: hidden;
     gap: 10px;
+    width: 100%;
 }
 
 .football-games-league {
     background: linear-gradient(188deg, rgba(255, 255, 255, 0.13769257703081228) 24%, rgba(201, 201, 201, 0.036852240896358524) 88%);
     border-radius: 10px;
-    min-width: 400px;
+    width: 400px;
+    padding: 5px;
+    border: 1px solid rgba(186, 186, 186, 0.566);
 }
 
 @media (max-width: 800px) {
@@ -63,9 +66,12 @@
     margin-top: 10px;
     cursor: pointer;
     border-radius: 10px;
-    padding: 7px;
-    margin: 15px 5px;
-    box-shadow: rgb(28 28 49 / 89%) 1px 1px 10px 0px, rgba(0, 0, 0, 0.3) 0px 3px 20px -3px;
+    padding: 7px 0px;
+    width: 100%;
+    margin: 15px 0px;
+    box-shadow: rgba(206, 206, 219, 0.89) 0px 0px 2px 0px, rgba(0, 0, 0, 0.3) 0px 3px 20px -3px;
+    border: 1px solid rgba(186, 186, 186, 0.566);
+    transition: all 0.4s ease;
 }
 
 .match-container:hover {
@@ -80,9 +86,9 @@
     display: flex;
     align-items: center;
     gap: 3%;
-    width: 40%;
     font-size: 15px;
     justify-content: flex-end;
+    width: 30%;
 }
 
 .match-container .team img {
