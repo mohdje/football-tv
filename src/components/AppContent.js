@@ -1,5 +1,5 @@
 import Spinner from "./logos/Spinner.js";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { getMatches, getStreams } from "../services/api.js";
 import FootballGamesList from "./FootballGamesList.js";
 import SearchModal from "./SearchModal.js";
