@@ -1,7 +1,6 @@
 import Spinner from "./logos/Spinner.js";
 import { useState, useEffect, useRef } from "react";
-import { getTodaysMatches } from "../services/FootballEvents.js";
-import { searchMatchStreamsAsync } from "../services/StreamsSearcher.js";
+import { getMatches, getStreams } from "../services/api.js";
 import FootballGamesList from "./FootballGamesList.js";
 import SearchModal from "./SearchModal.js";
 import StreamPlayerModal from "./streamPlayer/StreamPlayerModal.js";
@@ -13,7 +12,6 @@ export default function AppContent() {
     const [searchingMatches, setSearchingMatches] = useState(false);
 
     const [matchStreams, setMatchStreams] = useState([]);
-    const matchStreamsRef = useRef([]);
     const [showStreamPlayer, setShowStreamPlayer] = useState(false);
 
     const [showToastMessage, setShowToastMessage] = useState(false);
@@ -22,7 +20,7 @@ export default function AppContent() {
     useEffect(() => {
         setSearchingMatches(true);
         const fetchData = async () => {
-            const result = await getTodaysMatches();
+            const result = await getMatches();
             if (result)
                 setMacthesContainersList(result);
 
@@ -34,27 +32,41 @@ export default function AppContent() {
 
     const handleMatchClick = async (match) => {
         setSearchModalVisible(true);
-        matchStreamsRef.current = [];
 
-        await searchMatchStreamsAsync(match, (newStreams) => {
-            newStreams = newStreams.filter(newStream => !matchStreamsRef.current.find(stream => stream.url === newStream.url));
-
-            const updateStreamUrlsList = [...matchStreamsRef.current, ...newStreams];
-            matchStreamsRef.current = updateStreamUrlsList
-
-            setMatchStreams(updateStreamUrlsList);
-
-            if (!showStreamPlayer || searchModalVisible) {
-                setSearchModalVisible(false);
-                setShowStreamPlayer(true);
-            }
-        }, () => {
+        const streams = await getStreams(match.homeTeam.name, match.awayTeam.name);
+        if (streams && streams.length > 0) {
+            setMatchStreams(streams);
+            setSearchModalVisible(false);
+            setShowStreamPlayer(true);
+            return;
+        }
+        else {
             setSearchModalVisible(false);
             setShowToastMessage(true);
             setTimeout(() => {
                 setShowToastMessage(false);
             }, 3000);
-        })
+        }
+
+        // await searchMatchStreamsAsync(match, (newStreams) => {
+        //     newStreams = newStreams.filter(newStream => !matchStreamsRef.current.find(stream => stream.url === newStream.url));
+
+        //     const updateStreamUrlsList = [...matchStreamsRef.current, ...newStreams];
+        //     matchStreamsRef.current = updateStreamUrlsList
+
+        //     setMatchStreams(updateStreamUrlsList);
+
+        //     if (!showStreamPlayer || searchModalVisible) {
+        //         setSearchModalVisible(false);
+        //         setShowStreamPlayer(true);
+        //     }
+        // }, () => {
+        //     setSearchModalVisible(false);
+        //     setShowToastMessage(true);
+        //     setTimeout(() => {
+        //         setShowToastMessage(false);
+        //     }, 3000);
+        // })
     }
 
     let content = null

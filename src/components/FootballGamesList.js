@@ -53,8 +53,9 @@ export default function FootballGamesList({ macthesContainersList, onMatchClick 
 function MatchInfo({ match, onClick }) {
 
     const getFormattedTime = (date) => {
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
+        const dateObj = new Date(date);
+        const hours = dateObj.getHours();
+        const minutes = dateObj.getMinutes();
         return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
     }
 
