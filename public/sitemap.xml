@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://football-tv.vercel.app/</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://football-tv.vercel.app/football-tv-logo.png</image:loc>
+      <image:title>Football TV Logo</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://football-tv.vercel.app/matches</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.9</priority>
+  </url>
+</urlset>

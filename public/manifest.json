@@ -1,6 +1,7 @@
 {
-  "short_name": "Football tv",
-  "name": "Football tv App",
+  "short_name": "Football TV",
+  "name": "Football TV - Stream Live Football Matches",
+  "description": "Watch live football matches from major leagues without ads",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,8 +9,20 @@
       "type": "image/x-icon"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "categories": [
+    "sports"
+  ],
+  "screenshots": [
+    {
+      "src": "football-tv-screenshot.png",
+      "sizes": "540x720",
+      "type": "image/png"
+    }
+  ]
 }
