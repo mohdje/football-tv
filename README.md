@@ -6,8 +6,6 @@
 
 A modern web application to watch any football match from major leagues without annoying advertisement pop-ups.
 
-[Live Demo](#) • [Features](#features) • [Installation](#installation) • [Tech Stack](#tech-stack)
-
 </div>
 
 ---
