@@ -66,12 +66,6 @@ Football TV is a React-based web application that aggregates football match stre
    npm install
    ```
 
-3. **Install dependencies for the backend**
-   ```bash
-   cd ../football-tv-serverless
-   npm install
-   ```
-
 ### Running the Application
 
 **Frontend (React app)**
@@ -80,12 +74,6 @@ cd football-tv
 npm start
 ```
 The app will open at `http://localhost:3000`
-
-**Backend (Serverless functions)**
-```bash
-cd football-tv-serverless
-npm start
-```
 
 ---
 
