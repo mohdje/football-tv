@@ -6,14 +6,14 @@ export default function StreamLinksList({ isVisible, streams, onLinkClick, onClo
     const [streamLinksList, setStreamLinksList] = useState([]);
 
     useEffect(() => {
-        if (streams && streamLinksList.length === 0) {
-            setStreamLinksList(buildStreamLinksList(streams));
-        } else {
-            const selectedIndex = streamLinksList.findIndex(streamLink => streamLink.selected);
-            const updatedStreamLinksList = buildStreamLinksList(streams, selectedIndex);
+        if (streams) {
+            const selectedIndex = streamLinksList.length > 0
+                ? streamLinksList.findIndex(streamLink => streamLink.selected)
+                : 0;
+            const updatedStreamLinksList = buildStreamLinksList(streams, selectedIndex >= 0 ? selectedIndex : 0);
             setStreamLinksList(updatedStreamLinksList);
         }
-    }, [streams, streamLinksList]);
+    }, [streams]);
 
     const handleLinkClick = (index, selectedStream) => {
         const updatedStreamLinksList = buildStreamLinksList(streamLinksList, index);

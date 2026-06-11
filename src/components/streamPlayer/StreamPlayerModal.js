@@ -23,10 +23,10 @@ function StreamPlayer({ streams }) {
     const [isStreamLinksListVisible, setIsStreamLinksListVisible] = useState(true);
 
     useEffect(() => {
-        if (!iframeSource) {
+        if (streams && streams.length > 0) {
             setIframeSource(streams[0].url);
         }
-    }, [streams, iframeSource]);
+    }, [streams]);
 
     const handleStreamLinkClick = (selectedStream) => {
         setIframeSource(selectedStream.url);
@@ -46,7 +46,7 @@ function StreamPlayer({ streams }) {
         <div className="logo full-screen" onClick={() => setIsFullScreen(toggleFullScreen(streamPlayerContainer.current))}>
             {isFullScreen ? <ExitFullScreenLogo /> : <EnterFullScreenLogo />}
         </div>
-        <iframe title="stream-player-iframe" src={iframeSource} />
+        <iframe title="stream-player-iframe" src={iframeSource || null} />
     </div>
 }
 
