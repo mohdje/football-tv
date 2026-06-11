@@ -7,10 +7,7 @@ export default function StreamLinksList({ isVisible, streams, onLinkClick, onClo
 
     useEffect(() => {
         if (streams) {
-            const selectedIndex = streamLinksList.length > 0
-                ? streamLinksList.findIndex(streamLink => streamLink.selected)
-                : 0;
-            const updatedStreamLinksList = buildStreamLinksList(streams, selectedIndex >= 0 ? selectedIndex : 0);
+            const updatedStreamLinksList = buildStreamLinksList(streams, 0);
             setStreamLinksList(updatedStreamLinksList);
         }
     }, [streams]);
